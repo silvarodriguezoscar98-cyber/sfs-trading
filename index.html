@@ -1,2 +1,829 @@
 <!DOCTYPE html>
-<html><body><h1>SFS TRADING</h1><p>Página lista para abrir.</p></body></html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SFS TRADING | Llantas y Refacciones</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    :root {
+      --bg: #020617;
+      --bg-card: #020617;
+      --primary: #2563eb;
+      --primary-soft: rgba(37, 99, 235, 0.15);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-soft: #1f2937;
+      --accent: #22c55e;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #111827 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.95), rgba(2, 6, 23, 0.7));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .nav-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      color: var(--text-main);
+    }
+
+    .nav-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #3b82f6, #22c55e);
+      transition: width 0.2s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-cta {
+        display: block;
+      }
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #022c22;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn-whatsapp span.icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid #022c22;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 32px 0 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        grid-template-columns: 1.1fr 0.9fr;
+        padding: 40px 0 60px;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      margin-bottom: 14px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 2.6rem;
+      }
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--primary);
+    }
+
+    .hero-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .hero-pill {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #2563eb, #3b82f6);
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 18px 45px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-ghost {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .hero-secondary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-secondary span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-card {
+      border-radius: 24px;
+      padding: 18px;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-logo-wrapper {
+      border-radius: 20px;
+      background: #020617;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .hero-logo {
+      width: 180px;
+      max-width: 100%;
+    }
+
+    .hero-highlight {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-highlight strong {
+      color: var(--text-main);
+      font-size: 1.6rem;
+    }
+
+    .hero-highlight small {
+      display: block;
+      color: var(--text-muted);
+    }
+
+    .hero-highlight-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.75rem;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 20px 0 28px;
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    section p.section-sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    /* SERVICIOS */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 700px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(37, 99, 235, 0.18);
+      color: #bfdbfe;
+    }
+
+    /* MARCAS */
+    .brands {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+    }
+
+    .brand-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* POR QUÉ ELEGIRNOS */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 800px) {
+      .why-grid {
+        grid-template-columns: 1.3fr 1fr;
+      }
+    }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .list li span.icon {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.16);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #22c55e;
+    }
+
+    /* CONTACTO */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 800px) {
+      .contact-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text-muted);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    .contact-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .contact-card {
+      border-radius: 16px;
+      padding: 14px 14px 16px;
+      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.22), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .contact-item {
+      margin-top: 8px;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--text-main);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 14px 0 20px;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 700px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <!-- CAMBIA logo.png SI TU ARCHIVO TIENE OTRO NOMBRE -->
+          <img src="logo.png" alt="SFS Trading Logo" />
+        </div>
+        <div>
+          <div class="nav-title">SFS TRADING</div>
+          <div class="nav-sub">Llantas y refacciones</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#marcas">Marcas</a>
+        <a href="#por-que">¿Por qué nosotros?</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a class="btn-whatsapp" href="https://wa.me/5218112345678" target="_blank">
+          <span class="icon">✆</span>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Comercializadora especializada en flotillas y mayoreo</span>
+        </div>
+
+        <h1 class="hero-title">
+          Soluciones en <span>llantas y refacciones</span> para tu operación diaria.
+        </h1>
+
+        <p class="hero-text">
+          En <strong>SFS TRADING</strong> te ayudamos a mantener tus unidades rodando:
+          llantas para carga, camión, automóvil y refacciones clave con entrega rápida y atención personalizada.
+        </p>
+
+        <div class="hero-grid">
+          <span class="hero-pill">Atención a flotillas y transporte de carga</span>
+          <span class="hero-pill">Entrega rápida y precios competitivos</span>
+          <span class="hero-pill">Marcas nacionales e importadas</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#contacto" class="btn-primary">Cotizar ahora</a>
+          <a href="https://wa.me/5218112345678" target="_blank" class="btn-ghost">Escríbenos por WhatsApp</a>
+        </div>
+
+        <div class="hero-secondary" style="margin-top: 12px;">
+          <span class="dot"></span>
+          <span>Soporte directo, sin vueltas. Cotizamos por teléfono, WhatsApp o correo.</span>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-logo-wrapper">
+          <!-- Usa el mismo logo también aquí -->
+          <img src="logo.png" alt="SFS Trading Logo" class="hero-logo" />
+        </div>
+
+        <div class="hero-highlight">
+          <div>
+            <strong>24/7</strong>
+            <small>Atención para clientes de flotilla</small>
+          </div>
+          <div class="hero-highlight-pill">
+            Envíos nacionales y locales según disponibilidad de inventario.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+      <h2>Servicios y soluciones</h2>
+      <p class="section-sub">
+        Abastecemos llantas y refacciones para transporte de carga, pasajeros, autos particulares y maquinaria ligera.
+      </p>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Llantas para carga y camión</h3>
+          <p>
+            Llantas para eje direccional, tracción y arrastre. Opciones económicas y de alto rendimiento para carretera
+            y ciudad.
+          </p>
+          <span class="tag">Flotillas · Tractocamión · Rabón</span>
+        </article>
+
+        <article class="card">
+          <h3>Llantas para auto y SUV</h3>
+          <p>
+            Llantas de uso diario, alto kilometraje y desempeño. Medidas más comunes siempre disponibles bajo pedido.
+          </p>
+          <span class="tag">Turismo · SUV · Pickup</span>
+        </article>
+
+        <article class="card">
+          <h3>Refacciones y consumibles</h3>
+          <p>
+            Frenos, suspensión, filtros, baleros, hules, birlos y accesorios para mantenimiento preventivo y correctivo.
+          </p>
+          <span class="tag">Refacciones clave</span>
+        </article>
+
+        <article class="card">
+          <h3>Alineación y montaje (con aliados)</h3>
+          <p>
+            Te conectamos con talleres aliados para montaje, alineación y balanceo, para que tus unidades salgan listas
+            para trabajar.
+          </p>
+          <span class="tag">Red de talleres</span>
+        </article>
+
+        <article class="card">
+          <h3>Atención a flotillas</h3>
+          <p>
+            Programamos entregas, facturación y surtido de inventario con condiciones especiales para empresas.
+          </p>
+          <span class="tag">Empresas · PyMEs</span>
+        </article>
+
+        <article class="card">
+          <h3>Asesoría personalizada</h3>
+          <p>
+            Te ayudamos a elegir la llanta y refacción adecuada según ruta, carga y tipo de unidad para optimizar
+            rendimiento.
+          </p>
+          <span class="tag">Ahorro y rendimiento</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- MARCAS -->
+    <section id="marcas">
+      <h2>Marcas con las que trabajamos</h2>
+      <p class="section-sub">
+        Manejarás opciones de diferentes gamas para ajustar presupuesto sin sacrificar seguridad.
+      </p>
+
+      <div class="brands">
+        <span class="brand-pill">Marcas premium internacionales</span>
+        <span class="brand-pill">Marcas nacionales de alto rendimiento</span>
+        <span class="brand-pill">Opciones económicas para volumen</span>
+        <span class="brand-pill">Llantas renovadas / reencauche (según disponibilidad)</span>
+      </div>
+    </section>
+
+    <!-- POR QUÉ NOSOTROS -->
+    <section id="por-que">
+      <h2>¿Por qué elegir SFS TRADING?</h2>
+
+      <div class="why-grid">
+        <div>
+          <p class="section-sub">
+            No solo vendemos llantas: nos enfocamos en que tus unidades sigan trabajando sin paros innecesarios.
+          </p>
+
+          <ul class="list">
+            <li>
+              <span class="icon">✓</span>
+              <span><strong>Respuestas rápidas:</strong> cotizaciones claras por WhatsApp o correo.</span>
+            </li>
+            <li>
+              <span class="icon">✓</span>
+              <span><strong>Experiencia en transporte:</strong> entendemos rutas, carga y operación diaria.</span>
+            </li>
+            <li>
+              <span class="icon">✓</span>
+              <span><strong>Opciones para cada presupuesto:</strong> gama económica, intermedia y premium.</span>
+            </li>
+            <li>
+              <span class="icon">✓</span>
+              <span><strong>Relación a largo plazo:</strong> buscamos ser tu proveedor de confianza, no solo una venta.</span>
+            </li>
+          </ul>
+        </div>
+
+        <aside class="card">
+          <h3>Datos rápidos</h3>
+          <p style="margin-top: 6px;">
+            Comercializadora enfocada en:
+          </p>
+          <ul class="list" style="margin-top: 8px;">
+            <li>
+              <span class="icon">•</span>
+              <span>Transporte de carga y logística.</span>
+            </li>
+            <li>
+              <span class="icon">•</span>
+              <span>Flotillas de reparto urbano.</span>
+            </li>
+            <li>
+              <span class="icon">•</span>
+              <span>Empresas con vehículos de trabajo.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <h2>Contacto y cotizaciones</h2>
+      <p class="section-sub">
+        Cuéntanos qué unidades manejas y qué necesitas. Te regresamos la cotización lo antes posible.
+      </p>
+
+      <div class="contact-grid">
+        <form class="contact-form">
+          <div>
+            <label for="nombre">Nombre / Empresa</label>
+            <input id="nombre" type="text" placeholder="Ej. Transportes SFS" />
+          </div>
+
+          <div>
+            <label for="telefono">Teléfono / WhatsApp</label>
+            <input id="telefono" type="tel" placeholder="Ej. 81 1234 5678" />
+          </div>
+
+          <div>
+            <label for="correo">Correo (opcional)</label>
+            <input id="correo" type="email" placeholder="ejemplo@correo.com" />
+          </div>
+
+          <div>
+            <label for="mensaje">¿Qué necesitas?</label>
+            <textarea id="mensaje" placeholder="Ej. 8 llantas 295/80R22.5 para tractocamión + precios de refacciones de frenos."></textarea>
+          </div>
+
+          <button type="button" class="btn-primary">
+            Enviar (formulario de muestra)
+          </button>
+
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+            *Este formulario es solo de demostración. Contáctanos directamente por WhatsApp o teléfono para una respuesta inmediata.
+          </p>
+        </form>
+
+        <aside class="contact-card">
+          <p>
+            También puedes escribirnos directamente:
+          </p>
+
+          <div class="contact-item">
+            <strong>WhatsApp</strong>
+            <span>+52 81 1234 5678</span>
+          </div>
+
+          <div class="contact-item">
+            <strong>Teléfono</strong>
+            <span>(Línea de ventas) Actualiza aquí tu número.</span>
+          </div>
+
+          <div class="contact-item">
+            <strong>Correo</strong>
+            <span>ventas@sfs-trading.com (ejemplo, pon tu correo real).</span>
+          </div>
+
+          <a href="https://wa.me/5218112345678" target="_blank" class="btn-whatsapp" style="margin-top: 10px;">
+            <span class="icon">✆</span>
+            Enviar mensaje por WhatsApp
+          </a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="page">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> SFS TRADING. Todos los derechos reservados.</span>
+        <span>Sitio de presentación para comercializadora de llantas y refacciones.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Año automático en el footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
